@@ -6,9 +6,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"post-person/v1/model"
 	"post-person/v1/repository"
+	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/xeipuuv/gojsonschema"
 )
 
@@ -118,6 +121,15 @@ func writeResponse(code int, msg string, w http.ResponseWriter) {
 }
 
 func main() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		panic(err)
+	}
+	example := os.Getenv("EXAMPLE")
+	if strings.TrimSpace(example) == "" {
+		panic("EXAMPLE is empty")
+	}
+	// load environment variables here and wire any dependencies
 	repo := repository.NewPeopleRepository()
 	http.HandleFunc("/", adapter(repo))
 	log.Fatal(http.ListenAndServe(":8080", nil))
