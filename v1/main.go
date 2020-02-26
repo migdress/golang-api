@@ -15,10 +15,6 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-type uuidHelperInterface interface {
-	New() string
-}
-
 type peopleRepositoryInterface interface {
 	Save(m model.Person) error
 }
