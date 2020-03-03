@@ -23,3 +23,9 @@
 * Integration tests with mongodb
 * Dockerization
 
+## How to test it
+
+* clone the repository with `git clone https://github.com/migdress/golang-api.git`
+* cd into directory `cd golang-api`
+* test it with `make run`
+
