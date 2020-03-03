@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"net/http/httptest"
-	"post-person/v1/model"
+	"golang-api/person-post/model"
 	"strings"
 	"testing"
 

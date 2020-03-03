@@ -1,14 +1,15 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"golang-api/person-post/model"
+	"golang-api/person-post/repository"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"post-person/v1/model"
-	"post-person/v1/repository"
 	"strings"
 
 	"github.com/joho/godotenv"
@@ -121,12 +122,47 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	example := os.Getenv("EXAMPLE")
-	if strings.TrimSpace(example) == "" {
-		panic("EXAMPLE is empty")
+
+	host := os.Getenv("MONGODB_HOST")
+	if strings.TrimSpace(host) == "" {
+		panic("MONGODB_HOST is empty")
 	}
-	// load environment variables here and wire any dependencies
-	repo := repository.NewPeopleRepository()
+
+	port := os.Getenv("MONGODB_PORT")
+	if strings.TrimSpace(port) == "" {
+		panic("MONGODB_PORT is empty")
+	}
+
+	database := os.Getenv("MONGODB_DATABASE")
+	if strings.TrimSpace(database) == "" {
+		panic("MONGODB_DATABASE is empty")
+	}
+
+	collection := os.Getenv("MONGODB_COLLECTION")
+	if strings.TrimSpace(collection) == "" {
+		panic("MONGODB_COLLECTION is empty")
+	}
+
+	serveInPort := os.Getenv("APP_PORT")
+	if strings.TrimSpace(serveInPort) == "" {
+		panic("APP_PORT is empty")
+	}
+
+	client, err := repository.NewMongoDBConnection(
+		host,
+		port,
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	repo := repository.NewPeopleRepository(
+		client,
+		database,
+		collection,
+		context.Background(),
+	)
+
 	http.HandleFunc("/", adapter(repo))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+serveInPort, nil))
 }
