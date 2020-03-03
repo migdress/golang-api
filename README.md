@@ -25,7 +25,9 @@
 
 ## How to test it
 
-* clone the repository with `git clone https://github.com/migdress/golang-api.git`
-* cd into directory `cd golang-api`
-* test it with `make run`
+* Clone the repository with `git clone https://github.com/migdress/golang-api.git`
+* Cd into directory `cd golang-api`
+* Create the .env file `cp .env.example .env`
+* Configure env vars for mongodb connection in `.env`
+* Test it with `make run`
 
