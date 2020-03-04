@@ -16,12 +16,7 @@
   for support to .env files
 
 * There is a working mongodb repository implementation, tests are missing
-  though. The host, port, database and collection can be configured in .env file
-
-## Future features
-
-* Integration tests with mongodb
-* Dockerization
+  though. The host, port, database and collection can be configured in the `.env` file
 
 ## How to test it
 
@@ -29,5 +24,14 @@
 * Cd into directory `cd golang-api`
 * Create the .env file `cp .env.example .env`
 * Configure env vars for mongodb connection in `.env`
+    * **NOTE**: It's necessary (for now) to run a separate mongodb server and configure env vars in the `.env` to connect to it
 * Test it with `make run`
+* Run it in a container with `make dockerrun`
+
+## Future features
+
+* Integration tests with mongodb
+* Dockerization with docker-compose including the mongodb instance, for now there is a Dockerfile for the golang-api
+
+
 

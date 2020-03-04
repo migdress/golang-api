@@ -120,7 +120,10 @@ func writeResponse(code int, msg string, w http.ResponseWriter) {
 func main() {
 	err := godotenv.Load("../.env")
 	if err != nil {
-		panic(err)
+		err = godotenv.Load()
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	host := os.Getenv("MONGODB_HOST")
