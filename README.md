@@ -27,6 +27,7 @@
     * **NOTE**: It's necessary (for now) to run a separate mongodb server and configure env vars in the `.env` to connect to it
 * Test it with `make run`
 * Run it in a container with `make dockerrun`
+* Try making POST requests with a REST client to `localhost:8080`
 
 ## Future features
 
